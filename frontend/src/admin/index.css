@@ -1,0 +1,825 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+:root{
+  --error: #e7195a;
+}
+/*app.js */
+.App {
+  display: flex;
+  min-height: 100vh; /* Ensures the app container takes up the full viewport height */
+  background-color: #f5f5f5; /* A very light gray for the main background */
+}
+
+.content {
+  flex: 1; /* Allows the content area to grow and fill the remaining space */
+  display: flex;
+  flex-direction: column; /* Stacks the header and main content vertically */
+  padding: 20px;
+}
+
+
+/*metrics */
+.overview {
+  display: flex;
+  gap: 20px; /* Adjust spacing between cards */
+  justify-content: center; /* Center the cards if needed */
+  padding: 20px;
+}
+
+.metric-card {
+  background-color:#924fc5; /* A deep purple color similar to the image */
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1; /* Makes cards grow to fill the space */
+  min-width: 250px; /* Ensures cards don't get too small */
+}
+
+.metric-card h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+  opacity: 0.9; /* Slight transparency for the label */
+}
+
+.metric-card h1 {
+  font-size: 3rem; /* Large font for the number */
+  font-weight: 700;
+  margin: 0;
+}
+
+/*sidebar */
+
+.side-bar {
+  background-color:#9922FA;
+  color: white;
+  width: 250px; 
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow-y: auto;
+}
+
+.side-bar.minimized {
+  width: 80px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-header .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap; /* Prevents "FLAMINGO" from wrapping */
+}
+
+.side-bar.minimized .logo {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.nav-item:hover {
+  background-color: #B55BFA;
+}
+
+/* Style for the currently active link (using NavLink's activeClassName) */
+.nav-item.active {
+  background-color: #7e1ead;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item .icon {
+  font-size: 1.2rem;
+  margin-right: 15px;
+}
+
+.side-bar.minimized .nav-item {
+  justify-content: center; /* Center icons when minimized */
+  padding: 15px; /* Adjust padding */
+}
+
+.side-bar.minimized .nav-item .icon {
+  margin-right: 0;
+}
+
+.side-bar.minimized .nav-item span {
+  display: none; /* Hide text when minimized */
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* events table*/
+.events-details {
+  width: 90%;
+  background-color: #f7f7f7; 
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  padding: 20px;
+  margin-top: 20px; 
+  font-family: 'Inter', sans-serif;
+}
+
+.events-details p {
+  display: grid; /* Make each <p> a grid container */
+  grid-template-columns: 150px 1fr; /* Two columns: fixed width for label, rest for value */
+  gap: 10px; /* Space between label and value */
+  padding: 12px 0; /* Vertical padding for each "row" */
+  border-bottom: 1px solid #eeeeee; /* Light separator line between "rows" */
+  align-items: center; /* Vertically align items in the middle */
+  margin: 0; /* Remove default paragraph margin */
+  text-align: left;
+}
+
+.events-details p:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+.events-details p strong {
+  color: #333333; /* Darker color for labels */
+  font-weight: 600; /* Semi-bold for labels */
+  font-size: 0.95rem; 
+  text-align: right;
+  
+}
+
+.events-details p div {
+  color: #555555; /* Standard text color for values */
+  font-size: 0.9rem; /* Standard font size for values */
+  word-break: break-word; /* Ensures long text breaks to the next line */
+}
+.events-details p strong {
+  color: blueviolet;
+}
+
+.title {
+  text-transform: uppercase;
+}
+
+/* header */
+.app-header {
+  width: 100%;
+  padding: 15px 20px; 
+  background-color: #fafafa; 
+  border-bottom: 1px solid #eeeeee; 
+  display: flex; 
+  justify-content: flex-end; 
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.user-profile {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  color: #333333;
+  font-family: 'Inter', sans-serif; 
+}
+
+.user-icon {
+  font-size: 2.2rem; 
+  color: #999999; 
+}
+
+.user-name {
+  font-size: 1rem; 
+  font-weight: 500; 
+}
+
+/* add new event button */
+
+.addevent-navlink {
+  background-color: #5d1a7f; 
+  color: white; 
+  padding: 12px 25px; 
+  border: none; 
+  border-radius: 8px; 
+  font-size: 1rem;
+  font-weight: 600; 
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+  font-family: 'Inter', sans-serif; 
+   margin-top: 20px;
+}
+
+/* Hover effect for the button */
+.addevent-navlink:hover {
+  background-color: #6a2491;
+  transform: translateY(-2px); 
+}
+
+/* Active (clicked) state for the button */
+.addevent-navlink:active {
+  background-color: #4c1767; 
+  transform: translateY(0); 
+}
+
+/* Styling for the icon within the button */
+.addevent-navlink .add-icon {
+  font-size: 1.1rem; 
+}
+
+
+/* add new event form */
+
+/* Styling for the main form container */
+.addevent-form {
+  background-color: #ffffff; /* Clean white background */
+  padding: 35px; /* Increased padding for more breathing room */
+  border-radius: 12px; /* Slightly more rounded corners for a softer look */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced, softer shadow for depth */
+  width: 100%;
+  max-width: 550px; /* Slightly wider form for better content distribution */
+  margin: 30px auto; /* Centers the form with more vertical space */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increased space between form groups */
+  font-family: 'Inter', sans-serif;
+  animation: fadeInScale 0.4s ease-out; /* Add a subtle animation on load */
+}
+
+/* Animation for the form */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Styling for labels */
+.addevent-form label {
+  display: block;
+  margin-bottom: 8px; /* More space between label and input */
+  font-weight: 600;
+  color:#6a2491; /* Slightly softer dark gray for labels */
+  font-size: 1rem; /* Standard font size for better readability */
+  letter-spacing: 0.2px;
+}
+
+/* Styling for input fields (text and date) and textarea */
+.addevent-form input[type="text"],
+.addevent-form input[type="date"],
+.addevent-form input[type="datetime-local"], /* Added for consistency if used */
+.addevent-form textarea {
+  width: calc(100% - 24px); /* Full width minus padding */
+  padding: 12px; /* Increased padding inside inputs */
+  border: 1px solid #e0e0e0; /* Lighter, softer border */
+  border-radius: 8px; /* More rounded input fields */
+  font-size: 1rem;
+  color: #333333; /* Darker text for input values */
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Specific styling for textarea to allow resizing */
+.addevent-form textarea {
+  resize: vertical;
+  min-height: 100px; /* Slightly increased minimum height */
+}
+
+/* Focus state for input fields and textarea */
+.addevent-form input[type="text"]:focus,
+.addevent-form input[type="date"]:focus,
+.addevent-form input[type="datetime-local"]:focus,
+.addevent-form textarea:focus {
+  outline: none;
+  border-color: #7b4397; /* A slightly brighter purple for focus */
+  box-shadow: 0 0 0 4px rgba(123, 67, 151, 0.25); /* Wider, softer glow on focus */
+}
+
+/* Styling for the submit button */
+.addevent-form button {
+  background: linear-gradient(to right, #6a2491, #5d1a7f); /* Subtle purple gradient */
+  color: white;
+  padding: 15px 25px; /* Larger padding for a more prominent button */
+  border: none;
+  border-radius: 10px; /* More rounded button */
+  font-size: 1.1rem; /* Larger font size for button text */
+  font-weight: 700; /* Bolder text */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for all hover effects */
+  box-shadow: 0 6px 15px rgba(93, 26, 127, 0.25); /* Enhanced shadow for the button */
+  margin-top: 20px; /* More space above the button */
+  width: 100%;
+  letter-spacing: 0.5px; /* Adds a little space to button text */
+}
+
+/* Hover effect for the button */
+.addevent-form button:hover {
+  background: linear-gradient(to right, #5d1a7f, #6a2491); /* Reverse gradient on hover */
+  transform: translateY(-3px); /* More pronounced lift effect */
+  box-shadow: 0 10px 20px rgba(93, 26, 127, 0.35); /* Stronger shadow on hover */
+}
+
+/* Active (clicked) state for the button */
+.addevent-form button:active {
+  background-color: #4c1767;
+  transform: translateY(0); /* Return to original position */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
+}
+
+/* Styling for error messages */
+.addevent-form .eventError {
+  color: #e74c3c; /* Bright red for errors */
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* addMember form */
+
+/* Styling for the main form container for adding members */
+.addMember-form { /* Using the class name from your JSX: addMember-form */
+  background-color: #ffffff; /* Clean white background */
+  padding: 35px; /* Increased padding for more breathing room */
+  border-radius: 12px; /* Slightly more rounded corners for a softer look */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced, softer shadow for depth */
+  width: 100%;
+  max-width: 550px; /* Slightly wider form for better content distribution */
+  margin: 30px auto; /* Centers the form with more vertical space */
+  display: flex;
+  flex-direction: column; /* Stacks elements vertically */
+  gap: 20px; /* Increased space between form groups */
+  font-family: 'Inter', sans-serif;
+  animation: fadeInScale 0.4s ease-out; /* Add a subtle animation on load */
+}
+
+/* Animation for the form */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Styling for labels */
+.addMember-form label {
+  display: block;
+  margin-bottom: 8px; /* More space between label and input */
+  font-weight: 600;
+  color: #6a2491; /* Slightly softer dark gray for labels */
+  font-size: 1rem; /* Standard font size for better readability */
+  letter-spacing: 0.2px;
+}
+
+/* Styling for input fields (text, date, number) and select dropdown */
+.addMember-form input[type="text"],
+.addMember-form input[type="date"],
+.addMember-form input[type="number"],
+.addMember-form select {
+  width: calc(100% - 24px); /* Full width minus padding (12px on each side) */
+  padding: 12px; /* Increased padding inside inputs */
+  border: 1px solid #e0e0e0; /* Lighter, softer border */
+  border-radius: 8px; /* More rounded input fields */
+  font-size: 1rem;
+  color: #333333; /* Darker text for input values */
+  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+}
+
+/* Specific styling for the select dropdown */
+.addMember-form select {
+  -webkit-appearance: none; /* Remove default arrow on WebKit browsers */
+  -moz-appearance: none; /* Remove default arrow on Firefox */
+  appearance: none; /* Remove default arrow */
+  background-color: #ffffff;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%20viewBox%3D%220%200%20292.4%20292.4%22%3E%3Cpath%20fill%3D%22%236a2491%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.6-6.4H19A17.6%2017.6%200%200%200%205.4%2069.4a17.6%2017.6%200%200%200%200%2025.7l128%20128c6.5%206.5%2017%206.5%2023.5%200l128-128c6.5-6.5%206.5-17.1%200-23.6z%22%2F%3E%3C%2Fsvg%3E'); /* Custom SVG arrow, tinted with purple */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Position the arrow */
+  background-size: 12px; /* Size of the arrow */
+  padding-right: 30px; /* Make space for the arrow so text doesn't overlap */
+}
+
+/* Focus state for input fields and select */
+.addMember-form input[type="text"]:focus,
+.addMember-form input[type="date"]:focus,
+.addMember-form input[type="number"]:focus,
+.addMember-form select:focus {
+  outline: none; /* Removes default outline */
+  border-color: #7b4397; /* A slightly brighter purple for focus */
+  box-shadow: 0 0 0 4px rgba(123, 67, 151, 0.25); /* Wider, softer glow on focus */
+}
+
+/* Styling for the submit button */
+.addMember-form button {
+  background: linear-gradient(to right, #6a2491, #5d1a7f); /* Subtle purple gradient */
+  color: white;
+  padding: 15px 25px; /* Larger padding for a more prominent button */
+  border: none;
+  border-radius: 10px; /* More rounded button */
+  font-size: 1.1rem; /* Larger font size for button text */
+  font-weight: 700; /* Bolder text */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for all hover effects */
+  box-shadow: 0 6px 15px rgba(93, 26, 127, 0.25); /* Enhanced shadow for the button */
+  margin-top: 20px; /* More space above the button */
+  width: 100%; /* Full width button */
+  letter-spacing: 0.5px; /* Adds a little space to button text */
+}
+
+/* Hover effect for the button */
+.addMember-form button:hover {
+  background: linear-gradient(to right, #5d1a7f, #6a2491); /* Reverse gradient on hover */
+  transform: translateY(-3px); /* More pronounced lift effect */
+  box-shadow: 0 10px 20px rgba(93, 26, 127, 0.35); /* Stronger shadow on hover */
+}
+
+/* Active (clicked) state for the button */
+.addMember-form button:active {
+  background-color: #4c1767;
+  transform: translateY(0); /* Return to original position */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
+}
+
+/* Styling for error messages */
+.addMember-form .error { /* Using .error as per your JSX */
+  color: #e74c3c; /* Bright red for errors */
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+
+/* SUCCESS ALERT*/
+
+/* --- Overlay for Centering the Alert --- */
+.alert-modal-overlay {
+  position: fixed; /* Stays in place relative to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Slightly lighter, subtle overlay */
+  display: flex; /* Use Flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1001; /* Higher than other modals/content to ensure it's on top */
+  animation: fadeInOverlay 0.2s ease-out; /* Quick fade in for the overlay */
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Styles for the Success Alert Message (Inside the Overlay) --- */
+.success-alert {
+  background-color: #e6ffe6; /* Very light green for success */
+  color: #28a745; /* Dark green text */
+  border: 1px solid #28a745; /* Green border */
+  padding: 25px 35px; /* More generous padding for a prominent alert */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow for popup effect */
+  text-align: center;
+  font-size: 1.15rem; /* Slightly larger, more impactful text */
+  font-weight: 600; /* Bolder text for emphasis */
+  max-width: 350px; /* Max width to keep it compact and readable */
+  min-width: 250px; /* Minimum width */
+  font-family: 'Inter', sans-serif;
+  opacity: 0; /* Start hidden for animation */
+  transform: translateY(20px); /* Start slightly below for subtle pop-up effect */
+  animation: popInFadeOut 4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* More dynamic animation */
+}
+
+/* Keyframe animation for pop-in, stay, and fade-out */
+@keyframes popInFadeOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  } /* Start transparent, slightly down, slightly smaller */
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  } /* Pop into view, full size */
+  90% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  } /* Stay visible */
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9); /* Fade out and move slightly up, shrink */
+    display: none; /* Crucial to remove from flow after animation */
+  }
+}/* --- Overlay for Centering the Alert --- */
+.alert-modal-overlay {
+  position: fixed; /* Stays in place relative to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Slightly lighter, subtle overlay */
+  display: flex; /* Use Flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1001; /* Higher than other modals/content to ensure it's on top */
+  animation: fadeInOverlay 0.2s ease-out; /* Quick fade in for the overlay */
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Styles for the Success Alert Message (Inside the Overlay) --- */
+.success-alert {
+  background-color: #e6ffe6; /* Very light green for success */
+  color: #28a745; /* Dark green text */
+  border: 1px solid #28a745; /* Green border */
+  padding: 25px 35px; /* More generous padding for a prominent alert */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow for popup effect */
+  text-align: center;
+  font-size: 1.15rem; /* Slightly larger, more impactful text */
+  font-weight: 600; /* Bolder text for emphasis */
+  max-width: 350px; /* Max width to keep it compact and readable */
+  min-width: 250px; /* Minimum width */
+  font-family: 'Inter', sans-serif;
+  opacity: 0; /* Start hidden for animation */
+  transform: translateY(20px); /* Start slightly below for subtle pop-up effect */
+  animation: popInFadeOut 4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* More dynamic animation */
+}
+
+/* Keyframe animation for pop-in, stay, and fade-out */
+@keyframes popInFadeOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  } /* Start transparent, slightly down, slightly smaller */
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  } /* Pop into view, full size */
+  90% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  } /* Stay visible */
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9); /* Fade out and move slightly up, shrink */
+    display: none; /* Crucial to remove from flow after animation */
+  }
+}
+
+
+/*announcement details*/
+.announcement-details {
+  width: 90%;
+  background-color: #f7f7f7; 
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  padding: 20px;
+  margin-top: 20px; 
+  font-family: 'Inter', sans-serif;
+}
+
+.announcement-details p {
+ display: grid; /* Make each <p> a grid container */
+  grid-template-columns: 150px 1fr; /* Two columns: fixed width for label, rest for value */
+  gap: 10px; /* Space between label and value */
+  padding: 12px 0; /* Vertical padding for each "row" */
+  border-bottom: 1px solid #eeeeee; /* Light separator line between "rows" */
+  align-items: center; /* Vertically align items in the middle */
+  margin: 0; /* Remove default paragraph margin */
+  text-align: left;
+}
+
+.announcement-details p:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+.announcement-details p strong {
+  color: #333333; /* Darker color for labels */
+  font-weight: 600; /* Semi-bold for labels */
+  font-size: 0.95rem; 
+  text-align: right;
+}
+
+.announcement-details p div {
+  color: #555555; /* Standard text color for values */
+  font-size: 0.9rem; /* Standard font size for values */
+  word-break: break-word; /* Ensures long text breaks to the next line */
+}
+.announcement-details p strong {
+  color: blueviolet;
+}
+
+/* ADD MEMBER FORM*/
+.announcement-form { /* Using the class name from your JSX: addMember-form */
+  background-color: #ffffff; /* Clean white background */
+  padding: 35px; /* Increased padding for more breathing room */
+  border-radius: 12px; /* Slightly more rounded corners for a softer look */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced, softer shadow for depth */
+  width: 100%;
+  max-width: 550px; /* Slightly wider form for better content distribution */
+  margin: 30px auto; /* Centers the form with more vertical space */
+  display: flex;
+  flex-direction: column; /* Stacks elements vertically */
+  gap: 20px; /* Increased space between form groups */
+  font-family: 'Inter', sans-serif;
+  animation: fadeInScale 0.4s ease-out; /* Add a subtle animation on load */
+}
+
+/* Animation for the form */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Styling for labels */
+.announcement-form label {
+  display: block;
+  margin-bottom: 8px; /* More space between label and input */
+  font-weight: 600;
+  color: #6a2491; /* Slightly softer dark gray for labels */
+  font-size: 1rem; /* Standard font size for better readability */
+  letter-spacing: 0.2px;
+}
+
+/* Styling for input fields (text, date, number) and select dropdown */
+.announcement-form input[type="text"],
+.announcement-form input[type="date"],
+.announcement-form input[type="number"],
+.announcement-form select {
+  width: calc(100% - 24px); /* Full width minus padding (12px on each side) */
+  padding: 12px; /* Increased padding inside inputs */
+  border: 1px solid #e0e0e0; /* Lighter, softer border */
+  border-radius: 8px; /* More rounded input fields */
+  font-size: 1rem;
+  color: #333333; /* Darker text for input values */
+  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+}
+
+/* Specific styling for the select dropdown */
+.announcement-form select {
+  -webkit-appearance: none; /* Remove default arrow on WebKit browsers */
+  -moz-appearance: none; /* Remove default arrow on Firefox */
+  appearance: none; /* Remove default arrow */
+  background-color: #ffffff;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%20viewBox%3D%220%200%20292.4%20292.4%22%3E%3Cpath%20fill%3D%22%236a2491%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.6-6.4H19A17.6%2017.6%200%200%200%205.4%2069.4a17.6%2017.6%200%200%200%200%2025.7l128%20128c6.5%206.5%2017%206.5%2023.5%200l128-128c6.5-6.5%206.5-17.1%200-23.6z%22%2F%3E%3C%2Fsvg%3E'); /* Custom SVG arrow, tinted with purple */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Position the arrow */
+  background-size: 12px; /* Size of the arrow */
+  padding-right: 30px; /* Make space for the arrow so text doesn't overlap */
+}
+
+/* Focus state for input fields and select */
+.announcement-form input[type="text"]:focus,
+.announcement-form input[type="date"]:focus,
+.announcement-form input[type="number"]:focus,
+.announcement-form select:focus {
+  outline: none; /* Removes default outline */
+  border-color: #7b4397; /* A slightly brighter purple for focus */
+  box-shadow: 0 0 0 4px rgba(123, 67, 151, 0.25); /* Wider, softer glow on focus */
+}
+
+/* Styling for the submit button */
+.announcement-form button {
+  background: linear-gradient(to right, #6a2491, #5d1a7f); /* Subtle purple gradient */
+  color: white;
+  padding: 15px 25px; /* Larger padding for a more prominent button */
+  border: none;
+  border-radius: 10px; /* More rounded button */
+  font-size: 1.1rem; /* Larger font size for button text */
+  font-weight: 700; /* Bolder text */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for all hover effects */
+  box-shadow: 0 6px 15px rgba(93, 26, 127, 0.25); /* Enhanced shadow for the button */
+  margin-top: 20px; /* More space above the button */
+  width: 100%; /* Full width button */
+  letter-spacing: 0.5px; /* Adds a little space to button text */
+}
+
+/* Hover effect for the button */
+.announcement-form button:hover {
+  background: linear-gradient(to right, #5d1a7f, #6a2491); /* Reverse gradient on hover */
+  transform: translateY(-3px); /* More pronounced lift effect */
+  box-shadow: 0 10px 20px rgba(93, 26, 127, 0.35); /* Stronger shadow on hover */
+}
+
+/* Active (clicked) state for the button */
+.announcement-form button:active {
+  background-color: #4c1767;
+  transform: translateY(0); /* Return to original position */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
+}
+
+/* Styling for error messages */
+.announcement-form .error { /* Using .error as per your JSX */
+  color: #e74c3c; /* Bright red for errors */
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.delete {
+  background: #4751e4;
+  color: #cccbcb;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.title{
+  text-transform: uppercase;
+}
+
+/* handling unfilled fields */
+.addevent-form input.error,
+.addevent-form textarea.error {
+  border-color: red;
+}
+
+.announcement-form input.error,
+.announcement-form textarea.error {
+  border-color: red;
+}
+
+.addMember-form input.error,
+.addMember-form select.error,
+.addMember-form textarea.error {
+  border-color: red;
+  /* You can also add other styling like a box-shadow for a more pronounced effect */
+  /* box-shadow: 0 0 5px red; */
+}
+
+
+/* for delete button */
+/* Styling for the delete icon span */
+.material-symbols-outlined {
+  color: #ef5350; 
+  cursor: pointer;  
+  font-size: 24px;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+.material-symbols-outlined:hover {
+  color: #d32f2f;
+  background-color: rgba(239, 83, 80, 0.1);
+  transform: scale(1.1);
+
+
+}
