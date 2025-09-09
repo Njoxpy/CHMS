@@ -35,16 +35,33 @@ const createAnnouncement =  async (req, res) => {
 
 // GET all events
 const getAllAnnouncements = async (req, res) => {
-    const announcement = await Announcement.find({}).sort({createdAt: -1})
-    res.status(200).json(announcement)
+
+    /* REMEMBER TO USE THE TRY AND CATCH BLOCK HERE FOR YOUR REQUEST */
+    try {
+        const announcement = await Announcement.find({}).sort({createdAt: -1})
+        
+        // check if announcement exist
+        if(!announcement){
+            return res.status(400).json({error: "no announcements found"})
+        }
+
+        res.status(200).json(announcement)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 }
 
 // GET a single event
 const getSingleAnnouncement = async (req, res) => {
     const { id } = req.params;
+    // check if empty id
+    if(!id){
+        res.status(404).json({error: "no such announcement"})
+    }
 
+    // check if id is valid
     if(!mongoose.Types.ObjectId.isValid(id)){
-        res.status(404).res.json({error: "no such announcement"})
+        res.status(404).json({error: "no such announcement"})
     }
 
     const announcement = await Announcement.findById(id)
@@ -60,7 +77,8 @@ const getSingleAnnouncement = async (req, res) => {
 
 // DELETE an event
 const deleteAnnouncement = async (req, res) =>{
-    const { id } = req.params;
+ try {
+       const { id } = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
         res.status(404).json({error: 'announcement not found'});
@@ -73,11 +91,15 @@ const deleteAnnouncement = async (req, res) =>{
     }
 
     res.status(200).json(announcement)
+ } catch (error) {
+     res.status(400).json({error: error.message})
+ }
 }
 
 // UPDATE an event
 const updateAnnouncement = async (req, res) => {
-    const { id } = req.params;
+   try {
+     const { id } = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
         res.status(404).json({error: 'announcement not found'});
@@ -93,6 +115,9 @@ const updateAnnouncement = async (req, res) => {
 
     res.status(200).json(announcement)
 
+   } catch (error) {
+       res.status(400).json({error: error.message})
+   }
 }
 module.exports = {
     createAnnouncement,
