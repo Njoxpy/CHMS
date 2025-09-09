@@ -15,6 +15,7 @@ const mongoose = require('mongoose');
 // 02: start the express app
 const app = express();
 
+const connectDb = require('./config/DB');
 // 05: middleware
 app.use(cors());
 app.use(express.json())
@@ -30,14 +31,8 @@ app.use( '/api/v1/members', members)
 app.use( '/api/v1/announcements', announcements)
 
 // Connect to DataBase
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {
-    // 03: listening for the request
 app.listen(process.env.PORT, () => {
+    connectDb()
     console.log('connected to database & listening to port', process.env.PORT); 
 })
 
-})
-.catch((error) => {
-    console.log(error)
-})
