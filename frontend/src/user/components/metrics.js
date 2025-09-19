@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Metrics = () => {
   const [totalEvents, setTotalEvents] = useState(0);
@@ -10,11 +10,15 @@ const Metrics = () => {
     const fetchMetrics = async () => {
       try {
         // Fetch total events
-        const eventsResponse = await axios.get('http://localhost:4000/api/v1/events');
+        const eventsResponse = await axios.get(
+          "http://localhost:4000/api/v1/events"
+        );
         setTotalEvents(eventsResponse.data.length);
 
         // Fetch total announcements
-        const announcementsResponse = await axios.get('http://localhost:4000/api/v1/announcements');
+        const announcementsResponse = await axios.get(
+          "http://localhost:4000/api/v1/announcements"
+        );
         setTotalAnnouncements(announcementsResponse.data.length);
       } catch (err) {
         setError("Failed to fetch dashboard data.");
@@ -23,7 +27,7 @@ const Metrics = () => {
     };
 
     fetchMetrics();
-  }, []); 
+  }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -35,7 +39,7 @@ const Metrics = () => {
         <h3>Total events</h3>
         <h1>{totalEvents}</h1>
       </div>
-     
+
       <div className="metric-card">
         <h3>Total announcements</h3>
         <h1>{totalAnnouncements}</h1>
